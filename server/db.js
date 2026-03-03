@@ -85,6 +85,7 @@ async function initializeTables() {
         if (isSQLite) {
           // SQLite compatibility fixes
           let sqliteQuery = query
+            .replace(/INT AUTO_INCREMENT PRIMARY KEY/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
             .replace(/INT AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
             .replace(/DATETIME DEFAULT CURRENT_TIMESTAMP/gi, 'DATETIME DEFAULT CURRENT_TIMESTAMP')
             .replace(/ENUM\([^)]+\)/gi, 'TEXT')
