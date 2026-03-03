@@ -1,5 +1,7 @@
 # Automated Quiz Engine with PDF Certification Generation
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/bhargav9347/quiz-cert-engine)
+
 ## Start Instructions
 1. Start XAMPP (Apache + MySQL)
 2. Run `schema.sql` in phpMyAdmin or mysql cli
