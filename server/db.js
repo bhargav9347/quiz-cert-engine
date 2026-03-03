@@ -126,12 +126,27 @@ async function initializeTables() {
   }
 }
 
+// Track initialization state
+let isReady = false;
+const initPromise = initDB().then(() => {
+  isReady = true;
+  console.log('🚀 Database ready for queries');
+}).catch(err => {
+  console.error('💥 Database critical failure:', err);
+});
+
 // Export a unified query interface
 export default {
   query: async (text, params) => {
+    if (!isReady) {
+      await initPromise;
+    }
+
     if (isSQLite) {
-      // Convert [rows] structure to match mysql2 for SELECT queries
-      if (text.trim().toUpperCase().startsWith('SELECT')) {
+      const sql = text.trim();
+      const isSelect = sql.toUpperCase().startsWith('SELECT');
+
+      if (isSelect) {
         const results = await db.all(text, params);
         return [results]; // return [rows, fields]
       } else {
@@ -143,7 +158,4 @@ export default {
     }
   }
 };
-
-// Start initialization immediately
-initDB();
 
