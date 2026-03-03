@@ -94,7 +94,9 @@ async function initializeTables() {
           try {
             await db.run(sqliteQuery);
           } catch (e) {
-            console.error('SQLite Query Error:', e.message, '\nQuery:', sqliteQuery);
+            if (!sqliteQuery.includes('INSERT INTO')) {
+              console.error('SQLite Schema Error:', e.message, '\nQuery:', sqliteQuery);
+            }
           }
         } else {
           await db.query(query);
@@ -109,11 +111,35 @@ async function initializeTables() {
         const seedSql = fs.readFileSync(seedPath, 'utf8');
         const seedQueries = seedSql.split(';').map(q => q.trim()).filter(q => q && !q.includes('USE '));
 
+        let lastId = 0;
+        let vars = {};
+
         for (let query of seedQueries) {
           if (isSQLite) {
-            // Very basic @variable handling for SQLite (only for simple IDs)
-            let q = query.replace(/@\w+/g, '1'); // Fallback for simple seeds
-            try { await db.run(q); } catch (e) { }
+            // Handle SET @var = LAST_INSERT_ID()
+            if (query.toUpperCase().includes('SET @') && query.includes('LAST_INSERT_ID()')) {
+              const varName = query.match(/@(\w+)/)?.[1];
+              if (varName) {
+                vars[varName] = lastId;
+                continue;
+              }
+            }
+
+            // Replace variables @var with their values
+            let q = query;
+            for (let [name, val] of Object.entries(vars)) {
+              q = q.replace(new RegExp(`@${name}`, 'g'), val);
+            }
+
+            // Fallback for any unknown @vars
+            q = q.replace(/@\w+/g, '1');
+
+            try {
+              const result = await db.run(q);
+              if (result.lastID) lastId = result.lastID;
+            } catch (e) {
+              // console.warn('Seed Note:', e.message);
+            }
           } else {
             await db.query(query);
           }
