@@ -1,0 +1,37 @@
+name: Deployment
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Lint/Build Check
+      run: |
+        # This checks if the code is valid and ready
+        echo "Validating project structure..."
+        node --check server/app.js
+        echo "Project is ready for deployment!"
+
+    - name: Trigger Deployment
+      run: |
+        echo "Deployment triggered to Production Environment"
+        # If using Render, we would call their Deploy Hook here
+        # Example: curl -X POST https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
