@@ -30,9 +30,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.set('trust proxy', 1); // Needed for Render/Heroku load balancers to trust the cookie
 app.use(session({
     secret: process.env.SESSION_SECRET || 'secret',
-    resave: true,
+    proxy: true, // Also tell express-session to trust the proxy
+    resave: false, // Don't resave session if it hasn't changed
     saveUninitialized: false,
     rolling: true,
     cookie: {
