@@ -11,7 +11,6 @@ import certificateRoutes from './routes/certificates.js';
 import { attachUser } from './middleware/authMiddleware.js';
 
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 
 dotenv.config();
 
