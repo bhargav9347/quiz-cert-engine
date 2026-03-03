@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | QuizCert Engine</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-hero">
+            <h1 style="font-size: 3.5rem; margin-bottom: 20px;">Join QuizCert</h1>
+            <p style="font-size: 1.2rem; opacity: 0.8; max-width: 500px;">Start your journey to certification today.
+                Easy registration for students.</p>
+        </div>
+        <div class="auth-form-side">
+            <div class="glass-card">
+                <h2 class="mb-4">Create Account</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="full_name">Full Name</label>
+                        <input type="text" id="full_name" name="full_name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required
+                            placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <p class="mt-4 text-center">
+                    Already have an account? <a href="index.html">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script type="module" src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | QuizCert Engine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="auth-container">
+    <div class="auth-hero">
+      <h1 style="font-size: 3.5rem; margin-bottom: 20px;">QuizCert Engine</h1>
+      <p style="font-size: 1.2rem; opacity: 0.8; max-width: 500px;">Elevate your learning with automated assessment and instant professional certificates.</p>
+    </div>
+    <div class="auth-form-side">
+      <div class="glass-card">
+        <h2 class="mb-4">Welcome Back</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="admin@quiz.com">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+        <p class="mt-4 text-center">
+          Don't have an account? <a href="register.html">Register as Student</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
